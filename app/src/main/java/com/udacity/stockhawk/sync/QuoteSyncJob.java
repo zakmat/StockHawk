@@ -73,6 +73,11 @@ public final class QuoteSyncJob {
 
 
                 Stock stock = quotes.get(symbol);
+                if (stock == null || !stock.isValid()) {
+                    Timber.d(symbol + " is not a valid stock. Remove it from the list");
+                    iterator.remove();
+                    continue;
+                }
                 StockQuote quote = stock.getQuote();
 
                 float price = quote.getPrice().floatValue();

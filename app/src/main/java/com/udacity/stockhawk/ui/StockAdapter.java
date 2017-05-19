@@ -2,6 +2,7 @@ package com.udacity.stockhawk.ui;
 
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -35,7 +36,8 @@ class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockViewHolder> {
 
         dollarFormat = (DecimalFormat) NumberFormat.getCurrencyInstance(Locale.US);
         dollarFormatWithPlus = (DecimalFormat) NumberFormat.getCurrencyInstance(Locale.US);
-        dollarFormatWithPlus.setPositivePrefix("+$");
+        dollarFormatWithPlus.setPositivePrefix("+ $");
+        dollarFormatWithPlus.setNegativePrefix("- $");
         percentageFormat = (DecimalFormat) NumberFormat.getPercentInstance(Locale.getDefault());
         percentageFormat.setMaximumFractionDigits(2);
         percentageFormat.setMinimumFractionDigits(2);
@@ -67,8 +69,12 @@ class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockViewHolder> {
         cursor.moveToPosition(position);
 
 
-        holder.symbol.setText(cursor.getString(Contract.Quote.POSITION_SYMBOL));
-        holder.price.setText(dollarFormat.format(cursor.getFloat(Contract.Quote.POSITION_PRICE)));
+        String symbol = cursor.getString(Contract.Quote.POSITION_SYMBOL);
+        holder.symbol.setText(symbol);
+        holder.symbol.setContentDescription(context.getString(R.string.a11y_symbol, symbol));
+        String price = dollarFormat.format(cursor.getFloat(Contract.Quote.POSITION_PRICE));
+        holder.price.setText(price);
+        holder.price.setContentDescription(context.getString(R.string.a11y_price, price));
 
 
         float rawAbsoluteChange = cursor.getFloat(Contract.Quote.POSITION_ABSOLUTE_CHANGE);
@@ -80,14 +86,26 @@ class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockViewHolder> {
             holder.change.setBackgroundResource(R.drawable.percent_change_pill_red);
         }
 
+
         String change = dollarFormatWithPlus.format(rawAbsoluteChange);
+        String changeWithoutSign = dollarFormat.format(rawAbsoluteChange);
         String percentage = percentageFormat.format(percentageChange / 100);
 
         if (PrefUtils.getDisplayMode(context)
                 .equals(context.getString(R.string.pref_display_mode_absolute_key))) {
             holder.change.setText(change);
+            if (rawAbsoluteChange >= 0) {
+                holder.change.setContentDescription(context.getString(R.string.a11y_rise, changeWithoutSign));
+            } else if (rawAbsoluteChange < 0){
+                holder.change.setContentDescription(context.getString(R.string.a11y_fall, change));
+            }
         } else {
             holder.change.setText(percentage);
+            if (rawAbsoluteChange >= 0) {
+                holder.change.setContentDescription(context.getString(R.string.a11y_rise, percentage));
+            } else if (rawAbsoluteChange < 0){
+                holder.change.setContentDescription(context.getString(R.string.a11y_fall, percentage));
+            }
         }
 
 

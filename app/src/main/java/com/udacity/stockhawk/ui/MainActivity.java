@@ -166,11 +166,21 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         }
     }
 
+    private void setMenuItemContentDescription(MenuItem item) {
+        if (PrefUtils.getDisplayMode(this)
+                .equals(getString(R.string.pref_display_mode_absolute_key))) {
+            item.setTitle(this.getString(R.string.pref_display_mode_key, getString(R.string.pref_display_mode_percentage_key)));
+        } else {
+            item.setIcon(R.drawable.ic_dollar);
+            item.setTitle(this.getString(R.string.pref_display_mode_key, getString(R.string.pref_display_mode_absolute_key)));
+        }
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_activity_settings, menu);
         MenuItem item = menu.findItem(R.id.action_change_units);
         setDisplayModeMenuItemIcon(item);
+        setMenuItemContentDescription(item);
         return true;
     }
 

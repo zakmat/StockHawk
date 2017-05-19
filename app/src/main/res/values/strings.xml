@@ -1,12 +1,12 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Stock Hawk</string>
 
     <string name="pref_stocks_initialized_key" translatable="false">initialized</string>
 
-    <string name="pref_stocks_key">stocks</string>
+    <string name="pref_stocks_key" translatable="false">stocks</string>
 
 
-    <string name="pref_display_mode_key">displayMode</string>
+    <string name="pref_display_mode_key" translatable="false">displayMode</string>
     <string name="pref_display_mode_default">@string/pref_display_mode_percentage_key</string>
 
     <string name="pref_display_mode_absolute_key">absolute</string>
@@ -32,4 +32,11 @@
     <string name="toast_stock_added_no_connectivity">Symbol %s added. Will refresh when network available.</string>
     <string name="toast_no_connectivity">Will refresh when network available.</string>
 
+    <!-- A11y -->
+    <string name="a11y_add_stock_button">Add stock to watch</string>
+    <string name="a11y_display_mode_item">Change display mode to: <xliff:g id="display_mode">%1$s</xliff:g></string>
+    <string name="a11y_symbol">Symbol: <xliff:g id="symbol">%1$s</xliff:g></string>
+    <string name="a11y_price">Price: %1$s</string>
+    <string name="a11y_rise">Rise by: %1$s</string>
+    <string name="a11y_fall">Fall by: %1$s</string>
 </resources>

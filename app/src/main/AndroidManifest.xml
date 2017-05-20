@@ -22,7 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".ui.StockActivity"/>
         <service
             android:name=".sync.QuoteIntentService"
             android:exported="false" />

@@ -97,7 +97,7 @@ class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockViewHolder> {
             if (rawAbsoluteChange >= 0) {
                 holder.change.setContentDescription(context.getString(R.string.a11y_rise, changeWithoutSign));
             } else if (rawAbsoluteChange < 0){
-                holder.change.setContentDescription(context.getString(R.string.a11y_fall, change));
+                holder.change.setContentDescription(context.getString(R.string.a11y_fall, changeWithoutSign));
             }
         } else {
             holder.change.setText(percentage);

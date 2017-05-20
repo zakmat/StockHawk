@@ -8,25 +8,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import java.text.ParseException;
 
-import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.data.Contract;
 import com.udacity.stockhawk.data.PrefUtils;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
@@ -38,7 +24,8 @@ import java.util.Set;
 import timber.log.Timber;
 import yahoofinance.Stock;
 import yahoofinance.YahooFinance;
-import com.udacity.stockhawk.data.HistoricalQuote;
+import yahoofinance.histquotes.HistoricalQuote;
+import yahoofinance.histquotes.Interval;
 import yahoofinance.quotes.stock.StockQuote;
 
 public final class QuoteSyncJob {
@@ -97,78 +84,18 @@ public final class QuoteSyncJob {
                 float change = quote.getChange().floatValue();
                 float percentChange = quote.getChangeInPercent().floatValue();
 
-//                // WARNING! Don't request historical data for a stock that doesn't exist!
-//                // The request will hang forever X_x
-//                List<HistoricalQuote> history = stock.getHistory(from, to, Interval.WEEKLY);
-//
-//                StringBuilder historyBuilder = new StringBuilder();
-//
-//                for (HistoricalQuote it : history) {
-//                    historyBuilder.append(it.getDate().getTimeInMillis());
-//                    historyBuilder.append(", ");
-//                    historyBuilder.append(it.getClose());
-//                    historyBuilder.append("\n");
-//                }
-/*
-                Begin dummy data code, Please remove this when API is functioning again or we have a better solution
-                ----------------------------------------------------------------------------------------------------
-*/
-
-                List<HistoricalQuote> history = new ArrayList<>();
-
-                InputStream is = context.getResources().openRawResource(R.raw.dummy_data);
-                Writer writer = new StringWriter();
-                char[] buffer = new char[1024];
-                try {
-                    Reader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-                    int n;
-                    while ((n = reader.read(buffer)) != -1) {
-                        writer.write(buffer, 0, n);
-                    }
-                } finally {
-                    is.close();
-                }
-
-                String jsonString = writer.toString();
-                try {
-                    JSONObject json = new JSONObject(jsonString);
-                    JSONObject query = json.getJSONObject("query");
-                    JSONObject results = query.getJSONObject("results");
-                    JSONArray quoteArray = results.getJSONArray("quote");
-                    for (int i = 0; i < quoteArray.length(); i++) {
-                        JSONObject quoteObject = quoteArray.getJSONObject(i);
-
-                        //Get calendar
-                        String dateString = quoteObject.getString("Date");
-                        Calendar cal = Calendar.getInstance();
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                        cal.setTime(sdf.parse(dateString));
-
-                        //get closign price
-                        BigDecimal closingPrice = new BigDecimal(quoteObject.getString("Close"));
-                        HistoricalQuote historicalQuote = new HistoricalQuote(cal, closingPrice);
-                        history.add(historicalQuote);
-
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+                // WARNING! Don't request historical data for a stock that doesn't exist!
+                // The request will hang forever X_x
+                List<HistoricalQuote> history = stock.getHistory(from, to, Interval.WEEKLY);
 
                 StringBuilder historyBuilder = new StringBuilder();
 
                 for (HistoricalQuote it : history) {
-                    historyBuilder.append(it.getCalendar().getTimeInMillis());
+                    historyBuilder.append(it.getDate().getTimeInMillis());
                     historyBuilder.append(", ");
-                    historyBuilder.append(it.getClosingPrice());
+                    historyBuilder.append(it.getClose());
                     historyBuilder.append("\n");
                 }
-
-                /*
-                ----------------------------------------------------------------------------------------------------
-                End dummy data code
-                */
 
                 ContentValues quoteCV = new ContentValues();
                 quoteCV.put(Contract.Quote.COLUMN_SYMBOL, symbol);

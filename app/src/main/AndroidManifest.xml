@@ -39,7 +39,6 @@
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
         <service android:name=".widget.StocksWidgetRemoteViewsService"
-                 android:enabled="@bool/widget_all_stocks_enabled"
                  android:exported="false"
                  android:permission="android.permission.BIND_REMOTEVIEWS"
                  />
@@ -54,8 +53,7 @@
                        android:resource="@xml/widget_info_stock"/>
         </receiver>
         <receiver android:name=".widget.StocksWidgetProvider"
-                  android:label="@string/title_all_stocks_widget"
-                  android:enabled="@bool/widget_all_stocks_enabled">
+                  android:label="@string/title_all_stocks_widget" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="com.udacity.stockhawk.ACTION_DATA_UPDATED" />

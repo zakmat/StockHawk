@@ -1,7 +1,9 @@
 package com.udacity.stockhawk;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -36,4 +38,9 @@ public class Utility {
     public static String formatDollarWithPlus(double number) {
         return dollarFormatWithPlus.format(number);
     }
+    public static String formatDate(long dateInMilliseconds) {
+        Date date = new Date(dateInMilliseconds);
+        return DateFormat.getDateInstance().format(date);
+    }
+
 }

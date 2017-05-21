@@ -39,5 +39,12 @@
     <string name="a11y_price">Price: %1$s</string>
     <string name="a11y_rise">Rise by: %1$s</string>
     <string name="a11y_fall">Fall by: %1$s</string>
+
+    <!-- Widget strings -->
     <string name="title_stock_widget">Watch a stock</string>
+    <string name="title_all_stocks_widget">Show watched stocks</string>
+    <string name="empty_stocks_list">No Stock Information Available</string>
+
+    <!-- Stock Activity strings -->
+    <string name="chart_label_price">Price</string>
 </resources>

@@ -27,7 +27,7 @@ import butterknife.ButterKnife;
  * Created by mateusz.zak on 17.05.2017.
  */
 
-class StockActivity extends AppCompatActivity {
+public class StockActivity extends AppCompatActivity {
     @BindView(R.id.tv_symbol)
     TextView mSymbol;
     @BindView(R.id.lc_history)
@@ -61,8 +61,7 @@ class StockActivity extends AppCompatActivity {
             entries.add(new Entry(Float.valueOf(dataPiece[0]), Float.valueOf(dataPiece[1])));
 
         }
-        //TODO: query data from QuoteSyncJob
-        LineDataSet dataSet = new LineDataSet(entries, "Price");
+        LineDataSet dataSet = new LineDataSet(entries, getResources().getString(R.string.chart_label_price));
 
         LineData lineData = new LineData(dataSet);
         mChart.setData(lineData);

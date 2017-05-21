@@ -1,4 +1,4 @@
-package com.udacity.stockhawk.ui;
+package com.udacity.stockhawk.widget;
 
 import android.app.IntentService;
 import android.app.PendingIntent;
@@ -7,17 +7,13 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.support.annotation.Nullable;
 import android.widget.RemoteViews;
 
 import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.Utility;
 import com.udacity.stockhawk.data.Contract;
-
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.Locale;
+import com.udacity.stockhawk.ui.MainActivity;
 
 import timber.log.Timber;
 
@@ -25,7 +21,7 @@ import timber.log.Timber;
  * Created by mateusz.zak on 21.05.2017.
  */
 
-class QuoteWidgetIntentService extends IntentService {
+class SingleQuoteWidgetIntentService extends IntentService {
     private static final String[] QUOTE_COLUMNS = {
             Contract.Quote.COLUMN_PRICE,
             Contract.Quote.COLUMN_PERCENTAGE_CHANGE,
@@ -34,8 +30,8 @@ class QuoteWidgetIntentService extends IntentService {
     private static final int INDEX_PRICE = 0;
     private static final int INDEX_CHANGE = 1;
 
-    public QuoteWidgetIntentService() {
-        super("QuoteWidgetIntentService");
+    public SingleQuoteWidgetIntentService() {
+        super("SingleQuoteWidgetIntentService");
     }
 
 
@@ -44,10 +40,10 @@ class QuoteWidgetIntentService extends IntentService {
         Timber.d("onHandleIntent called");
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this,
-                QuoteWidgetProvider.class));
+                SingleQuoteWidgetProvider.class));
 
         //TODO: use configured symbol instead of hardcoded one
-        String symbol = "YHOO";
+        String symbol = getString(R.string.default_stocks_yahoo);
         Uri stockUri = Contract.Quote.makeUriForStock(symbol);
         Cursor data = getContentResolver().query(stockUri, QUOTE_COLUMNS, null,
                 null, null);

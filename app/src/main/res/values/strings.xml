@@ -39,4 +39,5 @@
     <string name="a11y_price">Price: %1$s</string>
     <string name="a11y_rise">Rise by: %1$s</string>
     <string name="a11y_fall">Fall by: %1$s</string>
+    <string name="title_stock_widget">Watch a stock</string>
 </resources>

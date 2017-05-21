@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.udacity.stockhawk.R;
+import com.udacity.stockhawk.Utility;
 import com.udacity.stockhawk.data.Contract;
 import com.udacity.stockhawk.data.PrefUtils;
 
@@ -24,9 +25,6 @@ import butterknife.ButterKnife;
 class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockViewHolder> {
 
     private final Context context;
-    private final DecimalFormat dollarFormatWithPlus;
-    private final DecimalFormat dollarFormat;
-    private final DecimalFormat percentageFormat;
     private Cursor cursor;
     private final StockAdapterOnClickHandler clickHandler;
 
@@ -34,14 +32,6 @@ class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockViewHolder> {
         this.context = context;
         this.clickHandler = clickHandler;
 
-        dollarFormat = (DecimalFormat) NumberFormat.getCurrencyInstance(Locale.US);
-        dollarFormatWithPlus = (DecimalFormat) NumberFormat.getCurrencyInstance(Locale.US);
-        dollarFormatWithPlus.setPositivePrefix("+ $");
-        dollarFormatWithPlus.setNegativePrefix("- $");
-        percentageFormat = (DecimalFormat) NumberFormat.getPercentInstance(Locale.getDefault());
-        percentageFormat.setMaximumFractionDigits(2);
-        percentageFormat.setMinimumFractionDigits(2);
-        percentageFormat.setPositivePrefix("+");
     }
 
     void setCursor(Cursor cursor) {
@@ -72,7 +62,7 @@ class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockViewHolder> {
         String symbol = cursor.getString(Contract.Quote.POSITION_SYMBOL);
         holder.symbol.setText(symbol);
         holder.symbol.setContentDescription(context.getString(R.string.a11y_symbol, symbol));
-        String price = dollarFormat.format(cursor.getFloat(Contract.Quote.POSITION_PRICE));
+        String price = Utility.formatDollar(cursor.getFloat(Contract.Quote.POSITION_PRICE));
         holder.price.setText(price);
         holder.price.setContentDescription(context.getString(R.string.a11y_price, price));
 
@@ -87,9 +77,9 @@ class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockViewHolder> {
         }
 
 
-        String change = dollarFormatWithPlus.format(rawAbsoluteChange);
-        String changeWithoutSign = dollarFormat.format(rawAbsoluteChange);
-        String percentage = percentageFormat.format(percentageChange / 100);
+        String change = Utility.formatDollarWithPlus(rawAbsoluteChange);
+        String changeWithoutSign = Utility.formatDollar(rawAbsoluteChange);
+        String percentage = Utility.formatPercentage(percentageChange / 100);
 
         if (PrefUtils.getDisplayMode(context)
                 .equals(context.getString(R.string.pref_display_mode_absolute_key))) {

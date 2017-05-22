@@ -9,8 +9,8 @@
     <string name="pref_display_mode_key" translatable="false">displayMode</string>
     <string name="pref_display_mode_default">@string/pref_display_mode_percentage_key</string>
 
-    <string name="pref_display_mode_absolute_key">absolute</string>
-    <string name="pref_display_mode_percentage_key">percentage</string>
+    <string name="pref_display_mode_absolute_key" translatable="false">absolute</string>
+    <string name="pref_display_mode_percentage_key" translatable="false">percentage</string>
 
     <string name="default_stocks_yahoo">YHOO</string>
     <string name="default_stocks_apple">AAPL</string>
@@ -42,7 +42,7 @@
 
     <!-- Widget strings -->
     <string name="title_stock_widget">Watch a stock</string>
-    <string name="title_all_stocks_widget">Show watched stocks</string>
+    <string name="title_all_stocks_widget">Watched stocks</string>
     <string name="empty_stocks_list">No Stock Information Available</string>
 
     <!-- Stock Activity strings -->

@@ -21,7 +21,7 @@ import timber.log.Timber;
  * Created by mateusz.zak on 21.05.2017.
  */
 
-class SingleQuoteWidgetIntentService extends IntentService {
+public class SingleQuoteWidgetIntentService extends IntentService {
     private static final String[] QUOTE_COLUMNS = {
             Contract.Quote.COLUMN_PRICE,
             Contract.Quote.COLUMN_PERCENTAGE_CHANGE,

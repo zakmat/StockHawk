@@ -18,7 +18,7 @@ import timber.log.Timber;
  * Created by mateusz.zak on 21.05.2017.
  */
 
-class StocksWidgetRemoteViewsService extends RemoteViewsService {
+public class StocksWidgetRemoteViewsService extends RemoteViewsService {
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {

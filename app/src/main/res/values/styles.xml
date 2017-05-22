@@ -32,6 +32,7 @@
     </style>
 
     <style name="StocksWidgetTitleTextStyle">
+        <item name="android:textColor">#FFF</item>
         <item name="android:textSize">25sp</item>
         <item name="android:textStyle">bold</item>
     </style>

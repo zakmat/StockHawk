@@ -45,16 +45,19 @@ public class StockActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stock);
-        String symbol = getIntent().getStringExtra(Intent.EXTRA_TEXT);
         ButterKnife.bind(this);
-        mSymbol.setText(symbol);
-        Uri stockHistoryUri = Contract.Quote.URI.buildUpon().appendPath(symbol).build();
-        String[] projection = {Contract.Quote.COLUMN_HISTORY};
-        Cursor cursor = getContentResolver().query(stockHistoryUri, projection, null, null, null);
-        if (cursor != null && cursor.getCount() != 0) {
-            setChartData(cursor);
-        }
+        Intent incomingIntent = getIntent();
+        if (incomingIntent.hasExtra(Intent.EXTRA_TEXT)) {
+            String symbol = incomingIntent.getStringExtra(Intent.EXTRA_TEXT);
+            mSymbol.setText(symbol);
+            Uri stockHistoryUri = Contract.Quote.URI.buildUpon().appendPath(symbol).build();
+            String[] projection = {Contract.Quote.COLUMN_HISTORY};
+            Cursor cursor = getContentResolver().query(stockHistoryUri, projection, null, null, null);
 
+            if (cursor != null && cursor.getCount() != 0) {
+                setChartData(cursor);
+            }
+        }
     }
 
     private void setChartData(Cursor cursor) {

@@ -12,33 +12,33 @@
     <string name="pref_display_mode_absolute_key" translatable="false">absolute</string>
     <string name="pref_display_mode_percentage_key" translatable="false">percentage</string>
 
-    <string name="default_stocks_yahoo">YHOO</string>
-    <string name="default_stocks_apple">AAPL</string>
-    <string name="default_stocks_microsoft">MSFT</string>
-    <string name="default_stocks_facebook">FB</string>
+    <string name="default_stocks_yahoo" translatable="false">YHOO</string>
+    <string name="default_stocks_apple" translatable="false">AAPL</string>
+    <string name="default_stocks_microsoft" translatable="false">MSFT</string>
+    <string name="default_stocks_facebook" translatable="false">FB</string>
 
 
     <string name="action_change_units">@string/pref_display_mode_key</string>
 
 
     <string name="dialog_title">Add Stock</string>
-    <string name="dialog_hint">Symbol (e.g. GOOG)</string>
+    <string name="dialog_hint">Symbol (e.g. <xliff:g id="symbol">GOOG</xliff:g>)</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_add">Add</string>
 
     <string name="error_no_network">No network connectivity! Will load stock cursor when the network is available.</string>
     <string name="error_no_stocks">No stocks added! Hit the floating action button to add one.</string>
 
-    <string name="toast_stock_added_no_connectivity">Symbol %s added. Will refresh when network available.</string>
+    <string name="toast_stock_added_no_connectivity">Symbol <xliff:g id="symbol">%1$s</xliff:g> added. Will refresh when network available.</string>
     <string name="toast_no_connectivity">Will refresh when network available.</string>
 
     <!-- A11y -->
     <string name="a11y_add_stock_button">Add stock to watch</string>
     <string name="a11y_display_mode_item">Change display mode to: <xliff:g id="display_mode">%1$s</xliff:g></string>
     <string name="a11y_symbol">Symbol: <xliff:g id="symbol">%1$s</xliff:g></string>
-    <string name="a11y_price">Price: %1$s</string>
-    <string name="a11y_rise">Rise by: %1$s</string>
-    <string name="a11y_fall">Fall by: %1$s</string>
+    <string name="a11y_price">Price: <xliff:g id="price">%1$s</xliff:g></string>
+    <string name="a11y_rise">Rise by: <xliff:g id="absolute_change">%1$s</xliff:g></string>
+    <string name="a11y_fall">Fall by: <xliff:g id="absolute_change">%1$s</xliff:g></string>
 
     <!-- Widget strings -->
     <string name="title_stock_widget">Watch a stock</string>
